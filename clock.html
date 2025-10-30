@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock by Raza</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: #f2f2f2;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      color: #333;
+    }
+
+    .clock {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #333;
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      letter-spacing: 3px;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 10px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #333;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    /* Dark mode */
+    .dark {
+      background: #222;
+      color: #eee;
+    }
+
+    .dark .clock {
+      background: #333;
+      color: #0f0;
+      box-shadow: 0 0 25px rgba(0,255,0,0.3);
+    }
+
+    .dark button {
+      background: #0f0;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>🕒 Digital Clock</h1>
+  <div class="clock" id="clock">00:00:00</div>
+  <button id="modeBtn">Switch to Dark Mode</button>
+
+  <script>
+    const clock = document.getElementById("clock");
+    const modeBtn = document.getElementById("modeBtn");
+    let darkMode = false;
+
+    function updateClock() {
+      const now = new Date();
+      let hrs = now.getHours();
+      let min = now.getMinutes();
+      let sec = now.getSeconds();
+      let ampm = hrs >= 12 ? "PM" : "AM";
+      hrs = hrs % 12 || 12;
+      clock.textContent = 
+        `${hrs.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')} ${ampm}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    modeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      darkMode = !darkMode;
+      modeBtn.textContent = darkMode ? "Switch to Light Mode" : "Switch to Dark Mode";
+    });
+  </script>
+</body>
+</html>
